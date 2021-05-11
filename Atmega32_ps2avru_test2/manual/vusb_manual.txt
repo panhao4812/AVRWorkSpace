@@ -1,0 +1,25 @@
+IDE：Atmel Studio
+
+1新建项目 如图1
+
+2 修改ToolChain 加载一个symbol F_CPU 如图2
+
+3导入库 如图3
+可以直接复制之后然后选择资源管理器标题栏的【显示所有文件】。然后把文件【包含在项目中】即可。如图所示，修改其中的usbconfig.h和usbdrv.c
+
+4 在usbconfig.h中修改对应的部分
+如图4-1 到 4-8
+
+5 修改描述符，一般直接写在usbdrv.c里面 如图5
+
+6修改设备描述符，直接在usbdrv.c里面改，如图6
+
+7修改配置描述符，直接在usbdrv.c里面改，如图7_1 到7_4
+
+8 修改usbFunctionDescriptor（）这一段是发生在usb设备接上的时候，可以抓包的时候看到返回值。如图8-1和8-2
+
+9实现usbFunctionSetup（）  usbFunctionWrite（）usbFunctionWriteOut（）这3个函数
+注意实现的时候要对应看看usbdrv.c里面的usbProcessRx（）不要写重复了。一般usbFunctionSetup中的report和idle是要补完整的。
+
+10 main（）
+Usbini是启动usb。在主循环里面需要有至少一个usbpoll（）。每次循环usbpoll不宜过多，最好一个完整发送包接一个poll。
